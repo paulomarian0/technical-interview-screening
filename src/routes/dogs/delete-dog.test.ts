@@ -1,5 +1,5 @@
 import { Server } from '@hapi/hapi';
-import { createDog } from '@/dog/create-dog'; // Importando createDog para criar um cachorro para teste
+import { createDog } from '@/dog/create-dog';
 import { invalidUUID } from '@/util/invalid-uuid';
 import { establishMongoConnection } from '@/util/mongo';
 import { deleteDogHandler } from './delete-dog';

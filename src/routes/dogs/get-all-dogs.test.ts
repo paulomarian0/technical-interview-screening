@@ -42,10 +42,10 @@ describe('listAllDogsHandler', () => {
       url: '/dogs',
     });
 
-    expect(res.statusCode).toBe(200); // Espera-se que a resposta seja 200
+    expect(res.statusCode).toBe(200);
     const responseBody = JSON.parse(res.payload);
     expect(responseBody).toHaveProperty('dogs');
-    expect(responseBody.dogs).toHaveLength(2); // Espera-se que haja 2 cachorros
+    expect(responseBody.dogs).toHaveLength(2);
     expect(responseBody.dogs[0]).toMatchObject({
       age: 3,
       breed: 'Labrador',
