@@ -9,8 +9,20 @@ export const updateDog = async ({
   age?: number;
   name?: string;
 }) => {
-  const dog = await Dog.findOneAndUpdate({ _id: dogId, name: name, age: age });
-  if (!dog) return;
+  const updateFields: { name?: string; age?: number } = {};
 
-  return { message: 'Dog updated successfully' };
+  if (name) updateFields.name = name;
+  if (age) updateFields.age = age;
+
+  const dog = await Dog.findByIdAndUpdate(
+    dogId,
+    { $set: updateFields },
+    { new: true },
+  );
+
+  if (!dog) {
+    return null;
+  }
+
+  return { message: 'Dog updated successfully', dog };
 };

@@ -1,19 +1,24 @@
-import { establishMongoConnection } from "@/util/mongo";
-import { createThing } from "./create-dog";
-import { Thing } from "./schema";
+import { establishMongoConnection } from '@/util/mongo';
+import { createDog } from './create-dog';
+import { Dog } from './schema';
 
 beforeAll(async () => {
-	await establishMongoConnection();
+  await establishMongoConnection();
 });
 
-describe("createThing", () => {
-	it("Inserts a new customer record", async () => {
-		await createThing("test");
-		const doc = await Thing.findOne({ message: "test" });
-		expect(doc).not.toBeNull();
-	});
+describe('createDog', () => {
+  it('Inserts a new dog record', async () => {
+    const dogData = { age: 3, breed: 'Labrador', name: 'Buddy' };
+    const createdDog = await createDog(dogData);
+
+    const doc = await Dog.findOne({ _id: createdDog.id });
+    expect(doc).not.toBeNull();
+    expect(doc?.age).toBe(dogData.age);
+    expect(doc?.breed).toBe(dogData.breed);
+    expect(doc?.name).toBe(dogData.name);
+  });
 });
 
 afterEach(async () => {
-	await Thing.deleteMany({});
+  await Dog.deleteMany({});
 });

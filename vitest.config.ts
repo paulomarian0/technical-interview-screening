@@ -10,7 +10,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'node',
-    globalSetup: './test-setup.ts',
+    globalSetup: './src/test-setup.ts',
     reporters: process.env.GITHUB_ACTIONS
       ? ['default', 'junit', 'github-actions']
       : ['default'],

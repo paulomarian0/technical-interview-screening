@@ -10,21 +10,23 @@ const payloadSchema = z.object({
 
 export const updateDogHandler: Lifecycle.Method = async (request) => {
   const { dogId } = request.params;
-  const { age, name } = payloadSchema.parse(request.payload);
 
   try {
-    const dog = await updateDog({
+    const { age, name } = payloadSchema.parse(request.payload);
+
+    const updatedDog = await updateDog({
       dogId,
       age,
       name,
     });
 
-    if (!dog) {
+    if (!updatedDog) {
       return Boom.notFound('Dog not found');
     }
 
-    return dog;
+    return updatedDog;
   } catch (e) {
-    console.error({ e });
+    console.error(e);
+    return Boom.badImplementation('An error occurred while updating the dog');
   }
 };

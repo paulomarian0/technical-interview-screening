@@ -4,19 +4,25 @@ import { z } from 'zod';
 import { createDog } from '@/dog';
 
 const payloadSchema = z.object({
-  name: z.string(),
-  breed: z.string(),
-  age: z.number(),
+  age: z.number().optional(),
+  breed: z.string().optional(),
+  name: z.string().optional(),
 });
 
 export const createDogHandler: Lifecycle.Method = async (request) => {
-  const payload = payloadSchema.parse(request.payload);
-  const { name, breed, age } = payload;
-
   try {
+    const payload = payloadSchema.parse(request.payload);
+
+    if (!payload.age || !payload.breed || !payload.name) {
+      throw Boom.badRequest('Invalid request payload');
+    }
+
+    const { name, breed, age } = payload;
+
     return await createDog({ name, breed, age });
-  } catch (e) {
-    console.error(e);
-    throw Boom.internal();
+  } catch (e: any) {
+    throw Boom.badRequest(
+      e.output.payload.message ?? 'Invalid request payload',
+    );
   }
 };
