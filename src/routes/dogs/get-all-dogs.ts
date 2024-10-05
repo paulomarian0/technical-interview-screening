@@ -7,7 +7,6 @@ export const listAllDogsHandler: Lifecycle.Method = async () => {
     const dogs = await getAllDogs();
     return { dogs };
   } catch (e) {
-    console.error(e);
     throw Boom.internal();
   }
 };

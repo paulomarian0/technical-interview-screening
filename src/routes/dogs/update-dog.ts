@@ -26,7 +26,6 @@ export const updateDogHandler: Lifecycle.Method = async (request) => {
 
     return updatedDog;
   } catch (e) {
-    console.error(e);
     return Boom.badImplementation('An error occurred while updating the dog');
   }
 };

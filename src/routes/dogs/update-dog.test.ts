@@ -40,11 +40,8 @@ describe('updateDogHandler', () => {
       },
     });
 
-    console.log({ res });
-
     expect(res.statusCode).toBe(200);
     const updatedDog = JSON.parse(res.payload);
-    console.log('updatedDog', updatedDog);
     expect(updatedDog).toEqual({
       message: 'Dog updated successfully',
       dog: expect.objectContaining({
