@@ -1,8 +1,9 @@
-import { Server } from '@hapi/hapi';
-import things from './things';
+import { Server } from "@hapi/hapi";
+import dogRoutes from "./dogs";
+import things from "./things";
 
 export const routes = async (server: Server) => {
-  await server.register(things, {
-    routes: { prefix: '/v1.0/things' },
-  });
+	await server.register(dogRoutes, {
+		routes: { prefix: "/v1.0/dogs" },
+	});
 };
