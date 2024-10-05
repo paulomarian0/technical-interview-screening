@@ -1,19 +1,14 @@
-import Boom from "@hapi/boom";
-import { Lifecycle } from "@hapi/hapi";
-import { getDog } from "@/dog";
-import { getThing } from "@/thing";
+import Boom from '@hapi/boom';
+import { Lifecycle } from '@hapi/hapi';
+import { getDog } from '@/dog';
 
 export const getDogHandler: Lifecycle.Method = async ({
-	params: { dogId },
+  params: { dogId },
 }) => {
-	let dog;
-	try {
-		dog = await getDog(dogId);
-	} catch (e) {
-		throw Boom.internal();
-	}
-	if (!dog) {
-		throw Boom.notFound("Dog not found");
-	}
-	return dog;
+  const dog = await getDog(dogId);
+
+  if (!dog) {
+    throw Boom.notFound('Dog not found');
+  }
+  return dog;
 };

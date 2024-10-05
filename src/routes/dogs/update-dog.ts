@@ -5,19 +5,18 @@ import { updateDog } from '@/dog/update-dog';
 
 const payloadSchema = z.object({
   name: z.string().optional(),
-  breed: z.string().optional(),
   age: z.number().optional(),
 });
 
 export const updateDogHandler: Lifecycle.Method = async (request) => {
   const { dogId } = request.params;
-  const payload = payloadSchema.parse(request.payload);
+  const { age, name } = payloadSchema.parse(request.payload);
 
   try {
     const dog = await updateDog({
       dogId,
-      age: payload.age,
-      name: payload.name,
+      age,
+      name,
     });
 
     if (!dog) {

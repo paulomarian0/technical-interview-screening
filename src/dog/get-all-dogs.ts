@@ -1,5 +1,5 @@
-import { Dog } from "./schema";
+import { Dog } from './schema';
 
 export const getAllDogs = async () => {
-	return await Dog.find();
+  return await Dog.find();
 };

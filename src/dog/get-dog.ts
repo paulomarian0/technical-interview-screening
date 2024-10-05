@@ -1,14 +1,15 @@
-import { Dog } from "./schema";
+import { Dog } from './schema';
 
 export const getDog = async (dogId: string) => {
-	const doc = await Dog.findById(dogId);
-	if (!doc) {
-		return;
-	}
-	return {
-		id: doc.id,
-		age: doc.age,
-		breed: doc.breed,
-		name: doc.name,
-	};
+  const dog = await Dog.findById(dogId);
+  if (!dog) {
+    return;
+  }
+
+  return {
+    id: dog.id,
+    age: dog.age,
+    breed: dog.breed,
+    name: dog.name,
+  };
 };

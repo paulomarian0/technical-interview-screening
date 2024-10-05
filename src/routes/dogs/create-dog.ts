@@ -10,16 +10,11 @@ const payloadSchema = z.object({
 });
 
 export const createDogHandler: Lifecycle.Method = async (request) => {
-  let payload;
-  try {
-    payload = payloadSchema.parse(request.payload);
-  } catch (e: any) {
-    throw Boom.badRequest('Validation error', e.issues);
-  }
+  const payload = payloadSchema.parse(request.payload);
   const { name, breed, age } = payload;
 
   try {
-    return await createDog(age, breed, name);
+    return await createDog({ name, breed, age });
   } catch (e) {
     console.error(e);
     throw Boom.internal();
